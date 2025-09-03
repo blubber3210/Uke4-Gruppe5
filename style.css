@@ -1,0 +1,41 @@
+body {
+    background-color: antiquewhite;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+input {
+    background-color: burlywood;
+}
+
+#stats {
+    border: black solid;
+    background-color: burlywood;
+    margin-left: 25%;
+    margin-right: 25%;
+
+}
+
+button {
+    cursor: pointer;
+    background-color:burlywood;
+    padding: 5px;
+    border-radius: 10%;
+}
+
+
+img {
+    cursor: pointer;
+}
+
+section {
+    margin-top: 10px;
+}
+
+.status {
+    margin-top: 10px;
+
+}
+html {
+    zoom: 1.5;
+}
