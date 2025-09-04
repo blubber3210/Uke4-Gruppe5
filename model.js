@@ -11,6 +11,7 @@ let mood = 100;
 let totalStats = hunger + hygiene + mood;
 
 let timeAlive = 0;
+let numberOfActions = 0;
 let age = "baby";
 let gameIsActive = false;
 let message = `everything is good`;

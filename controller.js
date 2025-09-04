@@ -1,102 +1,94 @@
 
-function feed(){
+function feed(){ //Feed your bunny - increase hunger value
+    numberOfActions++;
+    if (gameIsActive === false) {
+        return;
+    }
     hunger += 20;
     if(hunger > 100) hunger = 100;
-    updateView()
+    updateMessage();
 }
 
-function wash(){
+function wash(){ //Wash your bunny - increase hygiene value
+    numberOfActions++;
+    if (gameIsActive === false) {
+        return;
+    }
     hygiene += 20;
     if(hygiene > 100) hygiene = 100;
-    updateView()
+    updateMessage();
 }
 
-function pet(){
+function pet(){  //Pet your bunny - increase mood value
+    numberOfActions++;
+    if (gameIsActive === false) {
+        return;
+    }
     mood += 20;
     if(mood > 100) mood = 100;
-    updateView()
+    updateMessage();
 }
 
-function namePet(navn){
+function namePet(navn){ // Name bunny and start game
     petName = navn;
-    intro = ''
-    gameIsActive = true
-    updateView()
+    intro = '';
+    gameIsActive = true;
+    updateView();
 }
 
 function reloadPage(){
-    // location.reload();
-    // hunger = 100;
-    // hygiene = 100;
-    // mood = 100;
-    // picture = `<img src="Bilder/bunny.png" alt="picture of pet" width="60px">`;
-    // html += intro;
-    window.location.href = window.location.href;
+    window.location.href = window.location.href; //Refreshes the page to all the original variables
 }
 
 
 
-function danger(){
-    if(hunger <= 2 || hygiene <= 2){
-        document.getElementById("stats").style.backgroundColor = 'red'
-    } else {
-        document.getElementById("stats").style.backgroundColor = ''
-    }
-    
-}
-
-function bored(){
-    if(mood == 0){
-        message = 'Jeg kjeder meg'
-    }
-}
-
-
-function leaveOwner() {
+function leaveOwner() {  // When hunger, mood and hungry is too low, the bunny leaves and game is over
     gameIsActive = false;
     // document.getElementById("hungerBar").value = hunger;
     // document.getElementById("hygieneBar").value = hygiene;
     // document.getElementById("moodBar").value = mood;
-    document.getElementById("petImage").innerHTML = `<div>your pet has left to find a better place</div>`
+    document.getElementById("petImage").innerHTML = 
+        `<div>your pet has left to find a better place :(
+        <br>Time alive: ${timeAlive}
+        <br>Actions made: ${numberOfActions}</div>`;
     document.getElementById("statsSection").innerHTML = leaveOwnerhtml;
 }
 
 
 
-function reduceStats() {
+function reduceStats() { //Reduces all stats as time passes
     if (gameIsActive === false) {
         return;
     }
     
     hunger -= Math.floor(Math.random() * 3) + 5
     if (hunger < 0) {
-        hunger = 0
+        hunger = 0;   //forces hunger to return to 0 if it goes int the negatives
     }
     
     hygiene -= Math.floor(Math.random() * 3) + 5
     if (hygiene < 0) {
-        hygiene = 0
+        hygiene = 0;   //forces hygiene to return to 0 if it goes int the negatives
     }
 
     mood -= Math.floor(Math.random() * 3) + 5
     if (mood < 0) {
-        mood = 0
+        mood = 0;   //forces mood to return to 0 if it goes int the negatives
     }
 
-    if (hunger + hygiene + mood <= 0) {
+    if (hunger + hygiene + mood <= 0) { // checks if all stats have hit 0 and then activates leaveowner
         leaveOwner()
         return;
     }
-
-
-    ageUp()
-    updateMessage()
+    
+    ageUp();
+    updateMessage();
 };
 
-// let bunnyDiv = document.getElementById("petImage");
 
-function ageUp() {
-    timeAlive += 1
+
+function ageUp() { // bunny ages up to adolescent and then adult 
+    timeAlive += 1;
 
     if (timeAlive < 20) {
         age = "baby";
@@ -114,20 +106,27 @@ function ageUp() {
 }
 
 
-const everyFiveSeconds = setInterval(reduceStats, 300);
+const everyFiveSeconds = setInterval(reduceStats, 2500); // activates the reduceStats function ^^^ every 2.5 secons
 
 // PROGRESS BARS : 
 
-function updateMessage(){
+
+function updateMessage(){ //updates messages
+    message = ""
     if (hunger <= 20) {
-        message =`your pet is hungry!`;
-    } else if (hygiene <= 20) {
-        message =`your pet is grungy!`;
-    } else if (mood <= 20) {
-        message =`your pet is bored!`;
-    } else {
-        message= `everything is good`;
+        message += `your pet is hungry!<br>`;
     }
 
+    if (hygiene <= 20) {
+        message += `your pet is grungy!<br>`;
+    }
+
+    if (mood <= 20) {
+        message += `your pet is bored!`;
+    }
+
+    if (hunger > 20 && hygiene > 20 && mood > 20) {
+        message = `everything is good`;
+    } 
     updateView();
 }

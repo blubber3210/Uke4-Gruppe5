@@ -4,6 +4,10 @@ body {
     text-align: center;
 }
 
+#petImage {
+    color: grey;
+}
+
 input {
     background-color: burlywood;
 }
